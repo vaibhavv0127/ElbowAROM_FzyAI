@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
+    <title>Elbow Smart:Fuzzy Logic System</title>
+</head>
+<body>
+    <div style="display: flex; align-items: flex-start;">
+        <table align="center" border="0" cellpadding="5" cellspacing="10">
+            <tr>
+                <td>
+                    <h1>Active ROM & Strength Analyzer</h1>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <h2 align="center"></h2>
+                </td>
+            </tr>-->
+            <tr>
+                <td colspan="2" align="center">
+                    <img src="{{ plot_url }}" alt="Fuzzy AROM Plot" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <table border="0" cellpadding="5" cellspacing="10">
+                  <tr align="center">
+                      <td align="center" class="preserve-spacing"><h3>Elbow AROM value: <strong>{{ output }}</strong>                           Elbow Strength : <strong>{{elbowStrength}}</h3></td>
+                      <!--<td align="right"><h3>Elbow Strength : <strong>{{elbowStrength}}</strong></h3></td>-->
+                  </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <a href="/">Back to Main Page</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table>
+        <tr>
+            <td><img src="{{ plot_flexionurl }}" alt="Fuzzy Flexion Plot" align="center"></td>
+            <td><img src="{{ plot_extensionurl }}" alt="Fuzzy Extension Plot" align="center"></td>
+            <td><img src="{{ plot_pronationurl }}" alt="Fuzzy Extension Plot" align="center"></td>
+            <td><img src="{{ plot_supinationurl }}" alt="Fuzzy Extension Plot" align="center"></td>
+            <td><img src="{{ plot_wextensionurl }}" alt="Fuzzy Extension Plot" align="center"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
