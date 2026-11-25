@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
-    <title>Elbow Smart:Fuzzy Logic System</title>
+    <title>Elbow Smart: Assessment Result</title>
 </head>
 <body>
-    <div style="display: flex; align-items: flex-start;">
-        <table align="center" border="0" cellpadding="5" cellspacing="10">
-            <tr>
-                <td>
-                    <h1>Active ROM & Strength Analyzer</h1>
-                </td>
-            </tr>
-            <!--<tr>
-                <td>
-                    <h2 align="center"></h2>
-                </td>
-            </tr>-->
-            <tr>
-                <td colspan="2" align="center">
-                    <img src="{{ plot_url }}" alt="Fuzzy AROM Plot" >
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                <table border="0" cellpadding="5" cellspacing="10">
-                  <tr align="center">
-                      <td align="center" class="preserve-spacing"><h3>Elbow AROM value: <strong>{{ output }}</strong>                           Elbow Strength : <strong>{{elbowStrength}}</h3></td>
-                      <!--<td align="right"><h3>Elbow Strength : <strong>{{elbowStrength}}</strong></h3></td>-->
-                  </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="right">
-                    <a href="/">Back to Main Page</a>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <table>
-        <tr>
-            <td><img src="{{ plot_flexionurl }}" alt="Fuzzy Flexion Plot" align="center"></td>
-            <td><img src="{{ plot_extensionurl }}" alt="Fuzzy Extension Plot" align="center"></td>
-            <td><img src="{{ plot_pronationurl }}" alt="Fuzzy Extension Plot" align="center"></td>
-            <td><img src="{{ plot_supinationurl }}" alt="Fuzzy Extension Plot" align="center"></td>
-            <td><img src="{{ plot_wextensionurl }}" alt="Fuzzy Extension Plot" align="center"></td>
-        </tr>
-    </table>
-</body>
+    {% set arom_label = 'Low' if output <= 4 else ('Average' if output <= 8 else 'Good') %}
+    {% set arom_tone = 'weak' if output <= 4 else ('average' if output <= 8 else 'good') %}
 
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v6.5a3 3 0 0 0 3 3h8"/><path d="M16 13.5 12.5 10M16 13.5 12.5 17"/></svg>
+            </div>
+            <div>
+                <div class="brand-name">Elbow Smart</div>
+                <div class="brand-sub">Fuzzy logic assessment</div>
+            </div>
+            <a class="topbar-link" href="/">New assessment</a>
+        </div>
+    </header>
+
+    <main class="page">
+        <h1>Active ROM &amp; Strength Analyzer</h1>
+        <p class="lede">Assessment result</p>
+
+        <section class="summary">
+            <div class="stat tone-{{ arom_tone }}">
+                <div class="kicker">Elbow AROM value</div>
+                <div class="value">{{ output }}</div>
+                <span class="chip">{{ arom_label }}</span>
+            </div>
+            <div class="stat tone-{{ elbowStrength|lower }}">
+                <div class="kicker">Elbow Strength</div>
+                <div class="value">{{ elbowStrength }}</div>
+                <span class="chip">Based on AROM and pain level</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Overall AROM assessment</h2>
+            <p class="sub">The dashed line marks the computed output on the Low, Average and Good scale.</p>
+            <img src="{{ plot_url }}" alt="Fuzzy AROM Plot">
+        </section>
+
+        <section class="card">
+            <h2>How each measurement was scored</h2>
+            <p class="sub">Each dashed line shows the value entered against the membership curves for that measurement.</p>
+            <div class="plot-grid">
+                <figure><img src="{{ plot_flexionurl }}" alt="Fuzzy Flexion Plot"><figcaption>Flexion</figcaption></figure>
+                <figure><img src="{{ plot_extensionurl }}" alt="Fuzzy Extension Plot"><figcaption>Extension</figcaption></figure>
+                <figure><img src="{{ plot_pronationurl }}" alt="Fuzzy Pronation Plot"><figcaption>Pronation</figcaption></figure>
+                <figure><img src="{{ plot_supinationurl }}" alt="Fuzzy Supination Plot"><figcaption>Supination</figcaption></figure>
+                <figure><img src="{{ plot_wextensionurl }}" alt="Fuzzy Wrist Extension Plot"><figcaption>Wrist Extension</figcaption></figure>
+            </div>
+        </section>
+
+        <div class="actions">
+            <a class="btn btn-ghost" href="/">Back to Main Page</a>
+        </div>
+        <p class="disclaimer">This tool supports clinical assessment and does not replace a clinician’s judgment.</p>
+    </main>
+</body>
 </html>

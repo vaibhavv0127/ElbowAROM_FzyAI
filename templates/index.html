@@ -1,89 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
-    <title>Elbow Smart:Fuzzy Logic System</title>
+    <title>Elbow Smart: Active ROM &amp; Strength Analyzer</title>
 </head>
-<style>
-        .form-group {
-            display: flex;
-            align-items: center;
-        }
-
-        .form-select select{
-            display: flex;
-            align-items: right;
-        }
-        .form-group label {
-            margin-right: 60px;
-            white-space: nowrap;
-        }
-        .form-group input {
-            margin-left: 10px;
-            size:10;
-        }
-       .form-container {
-            width: 80%; /* Adjust this value as needed */
-            max-width: 800px; /* Optional: set a maximum width */
-            margin: 0 auto; /* Center the form on the page */
-            border: 1px solid #ccc; /* Optional: add a border */
-            padding: 20px; /* Optional: add spacing inside the form */
-            box-sizing: border-box; /* Include padding in the width calculation */
-        }
-    </style>
 <body>
-    <h1>Active ROM & Strength Analyzer</h1>
-     <div style="display: flex; align-items: flex-start;">
-     <table align="center" border="1">
-     <tr>
-     <td width="30">
-     <table>
-     <tr valign="top"><td><img src="/static/TennisElbow.png" alt="Tennis Elbow" style="width: 250px; height: auto; margin-right: 20px;">
-     </td></tr>
-     <tr></tr>
-     <tr valign="bottom"><td><img src="/static/ElbowStrength.png" alt="Tennis Strength" style="width: 250px; height: auto; margin-right: 20px;">
-     </td></tr>
-     </table>
-     </td>
-     <td>
-    <form action="/calculate" method="post" >
-    <h2>Enter ROM values</h2>
-            <table>
-        <tr><td>    <label>Elbow Flexion(69&deg; to 180&deg;):</label> </td>
-            <td>    <input type="number" name="flexion" required value="145"></td></tr>
-                <tr><td>
-                <label>Elbow Extension(-5&deg; to 8&deg;):</label></td><td>
-        <input type="number" name="extension" required value="1"><br><br>
-                  <tr><td>
-                 <label>Elbow Pronation(30&deg; to 100&deg;):</label></td><td>
-        <input type="number" name="pronation" required value="80"><br><br>
-             </td></tr>
-    <tr><td>  <label>Elbow Supination(0&deg; to 100&deg;):</label></td><td>
-        <input type="number" name="supination" required value="86"><br><br>
-     </td></tr>
-            <tr><td>
-        <label>Wrist Extension(20&deg; to 75&deg;):</label></td><td>
-        <input type="number" name="wextension" required value="55"><br><br>
-     </td></tr>
-             <tr><td>   <label>Pain Level:</label></td><td>
-        <select id="painlevel" name="painlevel">
-        <option value="None">None</option>
-        <option value="Low">Low</option>
-        <option value="Moderate">Moderate</option>
-        <option value="Severe">Severe</option>
-        </select>
-     </td></tr>
-     <tr></tr>
-     <tr></tr>
-     <tr></tr>
-      <tr><td colspan=2 align="center">
-        <input type="submit" value="Submit">
-          </td></tr>
-     </table>
-    </form>
-         </td>
-     </tr>
-     </table>
-   </div>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v6.5a3 3 0 0 0 3 3h8"/><path d="M16 13.5 12.5 10M16 13.5 12.5 17"/></svg>
+            </div>
+            <div>
+                <div class="brand-name">Elbow Smart</div>
+                <div class="brand-sub">Fuzzy logic assessment</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page">
+        <h1>Active ROM &amp; Strength Analyzer</h1>
+        <p class="lede">Enter the patient’s active range-of-motion measurements in degrees, plus the current pain level, to assess the elbow.</p>
+
+        <div class="layout">
+            <aside class="visuals" aria-label="Reference images">
+                <figure>
+                    <img src="/static/TennisElbow.png" alt="Tennis Elbow">
+                </figure>
+                <figure>
+                    <img src="/static/ElbowStrength.png" alt="Tennis Strength">
+                </figure>
+            </aside>
+
+            <section class="panel">
+                <form action="/calculate" method="post">
+                    <fieldset>
+                        <legend>Elbow</legend>
+                        <div class="fields">
+                            <div class="field">
+                                <label for="flexion">Flexion <span class="range">69° – 179°</span></label>
+                                <div class="input-wrap">
+                                    <input type="number" id="flexion" name="flexion" required value="145" min="69" max="179" step="any" inputmode="decimal">
+                                    <span class="unit">°</span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="extension">Extension <span class="range">-5° – 7°</span></label>
+                                <div class="input-wrap">
+                                    <input type="number" id="extension" name="extension" required value="1" min="-5" max="7" step="any" inputmode="decimal">
+                                    <span class="unit">°</span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="pronation">Pronation <span class="range">30° – 99°</span></label>
+                                <div class="input-wrap">
+                                    <input type="number" id="pronation" name="pronation" required value="80" min="30" max="99" step="any" inputmode="decimal">
+                                    <span class="unit">°</span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="supination">Supination <span class="range">0° – 99°</span></label>
+                                <div class="input-wrap">
+                                    <input type="number" id="supination" name="supination" required value="86" min="0" max="99" step="any" inputmode="decimal">
+                                    <span class="unit">°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Wrist</legend>
+                        <div class="fields">
+                            <div class="field">
+                                <label for="wextension">Wrist Extension <span class="range">20° – 74°</span></label>
+                                <div class="input-wrap">
+                                    <input type="number" id="wextension" name="wextension" required value="55" min="20" max="74" step="any" inputmode="decimal">
+                                    <span class="unit">°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Pain Level</legend>
+                        <div class="segmented" role="radiogroup" aria-label="Pain Level">
+                            <input type="radio" id="pain-none" name="painlevel" value="None" checked>
+                            <label for="pain-none">None</label>
+                            <input type="radio" id="pain-low" name="painlevel" value="Low">
+                            <label for="pain-low">Low</label>
+                            <input type="radio" id="pain-moderate" name="painlevel" value="Moderate">
+                            <label for="pain-moderate">Moderate</label>
+                            <input type="radio" id="pain-severe" name="painlevel" value="Severe">
+                            <label for="pain-severe">Severe</label>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn">Analyze elbow</button>
+                    <p class="note">Values outside the ranges shown can’t be scored by the model.</p>
+                </form>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
